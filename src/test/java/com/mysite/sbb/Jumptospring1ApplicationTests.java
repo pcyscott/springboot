@@ -48,4 +48,11 @@ class Jumptospring1ApplicationTests {
             assertEquals("sbb가 무엇인가요?", q.getSubject());
         }
     }
+
+    @Test//Findbysubject
+    void testJpa3(){
+        Question q = this.questionRepository.findBySubject("sbb가 무엇인가요?");
+        assertEquals(1L,q.getId());
+    }
+
 }
