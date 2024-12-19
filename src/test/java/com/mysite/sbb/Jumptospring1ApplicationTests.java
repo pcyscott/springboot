@@ -55,4 +55,10 @@ class Jumptospring1ApplicationTests {
         assertEquals(1L,q.getId());
     }
 
+    @Test//Findbysubjectandcontent
+    void testJpa4(){
+        Question q = this.questionRepository.findBySubjectAndContent(
+                "sbb가 무엇인가요?", "sbb에 대해서 알고 싶습니다.");
+        assertEquals(1L,q.getId());
+    }
 }
