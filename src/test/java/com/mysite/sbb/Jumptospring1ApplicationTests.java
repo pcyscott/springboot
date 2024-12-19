@@ -17,6 +17,9 @@ class Jumptospring1ApplicationTests {
     @Autowired
     private QuestionRepository questionRepository;
 
+    @Autowired
+    private AnswerRepository answerRepository;
+
     @Test
     void testJpa() {
         Question q1 = new Question();
@@ -30,6 +33,12 @@ class Jumptospring1ApplicationTests {
         q2.setContent("id는 자동으로 생성되나요?");
         q2.setCreateDate(LocalDateTime.now());
         this.questionRepository.save(q2);  // 두번째 질문 저장
+
+        Question q3 = new Question();
+        q3.setSubject("세번째 질문");
+        q3.setContent("세번째 답변");
+        q3.setCreateDate(LocalDateTime.now());
+        this.questionRepository.save(q3);  // 두번째 질문 저장
     }
 
     @Test//Findall
@@ -87,5 +96,18 @@ class Jumptospring1ApplicationTests {
         Question q = oq.get();
         this.questionRepository.delete(q);
         assertEquals(1L,this.questionRepository.count());
+    }
+
+    @Test//addAnswer
+    void testJpa8(){
+        Optional<Question> oq = this.questionRepository.findById(1L);
+        assertTrue(oq.isPresent());
+        Question q = oq.get();
+
+        Answer a = new Answer();
+        a.setContent("네 자동으로 생성됩니다.");
+        a.setQuestion(q);
+        a.setCreateTime(LocalDateTime.now());
+        this.answerRepository.save(a);
     }
 }
