@@ -78,4 +78,14 @@ class Jumptospring1ApplicationTests {
         q.setSubject("수정된 제목");
         this.questionRepository.save(q);
     }
+
+    @Test//deletequestion
+    void testJpa7(){
+        assertEquals(2L,this.questionRepository.count());
+        Optional<Question> oq = this.questionRepository.findById(1L);
+        assertTrue(oq.isPresent());
+        Question q = oq.get();
+        this.questionRepository.delete(q);
+        assertEquals(1L,this.questionRepository.count());
+    }
 }
