@@ -110,4 +110,12 @@ class Jumptospring1ApplicationTests {
         a.setCreateTime(LocalDateTime.now());
         this.answerRepository.save(a);
     }
+
+    @Test//findAnswer
+    void testJpa9(){
+        Optional<Answer> oa = this.answerRepository.findById(1L);
+        assertTrue(oa.isPresent());
+        Answer a = oa.get();
+        assertEquals(2L,a.getQuestion().getId());
+    }
 }
