@@ -20,12 +20,12 @@ public class UserController {
     }
 
     @PostMapping("/signup")
-    public String singup(@Valid UserCreateForm userCreateForm, BindingResult bindingResult) {
+    public String signup(@Valid UserCreateForm userCreateForm, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "signup_form";
         }
 
-        if (!userCreateForm.equals(userCreateForm.getPassword2())) {
+        if (!userCreateForm.getPassword().equals(userCreateForm.getPassword2())) {
             bindingResult.rejectValue("password2", "passwordInCorrect",
                     "비밀번호가 일치하지 않습니다.");
             return "signup_form";
