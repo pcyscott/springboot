@@ -1,6 +1,6 @@
 package com.mysite.sbb.Question;
 
-import com.mysite.sbb.DataNotFoundException;
+import com.mysite.sbb.Security.DataNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
