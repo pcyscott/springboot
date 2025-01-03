@@ -18,34 +18,42 @@ import java.util.Optional;
 @Service
 public class QuestionService {
     private final QuestionRepository questionRepository;
-    public List<Question> getList(){
+
+    public List<Question> getList() {
         return this.questionRepository.findAll();
     }
-    public Question getQuestion(Long id){
+
+    public Question getQuestion(Long id) {
         Optional<Question> question = this.questionRepository.findById(id);
-        if(question.isPresent()){
+        if (question.isPresent()) {
             return question.get();
-        }
-        else{
+        } else {
             throw new DataNotFoundException("question not found");
         }
     }
 
-    public Page<Question> getList(int page){
+    public Page<Question> getList(int page) {
         List<Sort.Order> sorts = new ArrayList<>();
         sorts.add(Sort.Order.desc("createDate"));
-        Pageable pageable = PageRequest.of(page, 10,Sort.by(sorts));
+        Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
         return this.questionRepository.findAll(pageable);
     }
 
 
-    public void create(String subject, String content, SiteUser user){ {
+    public void create(String subject, String content, SiteUser user) {
         Question q = new Question();
         q.setSubject(subject);
         q.setContent(content);
         q.setCreateDate(LocalDateTime.now());
         q.setAuthor(user);
         this.questionRepository.save(q);
+
     }
-}
+
+    public void modify(Question question, String subject, String content) {
+        question.setSubject(subject);
+        question.setContent(content);
+        question.setModifyDate(LocalDateTime.now());
+        this.questionRepository.save(question);
+    }
 }
